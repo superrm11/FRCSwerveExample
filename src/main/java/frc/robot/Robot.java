@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,9 +27,29 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    // Configure if any encoders are reversed.
+    Hardware.leftFrontTurnEncoder.setReverseDirection(false);
+    Hardware.rightFrontTurnEncoder.setReverseDirection(false);
+    Hardware.rightRearTurnEncoder.setReverseDirection(false);
+    Hardware.leftRearTurnEncoder.setReverseDirection(false);
+
+    // Configure if any turn motor is reversed
+    Hardware.leftFrontTurn.setInverted(false);
+    Hardware.rightFrontTurn.setInverted(false);
+    Hardware.rightRearTurn.setInverted(false);
+    Hardware.leftRearTurn.setInverted(false);
+
+    // Configure if any drive motor is reversed
+    Hardware.leftFrontDrive.setInverted(false);
+    Hardware.rightFrontDrive.setInverted(false);
+    Hardware.rightRearDrive.setInverted(false);
+    Hardware.leftRearDrive.setInverted(false);
+
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
   }
 
   /**
@@ -74,11 +95,50 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+
+    // ONLY uncomment for testing purposes. Do NOT reset during a match!
+    // I mean it! bad things WILL happen!
+
+    // Hardware.leftFrontTurnEncoder.reset();
+    // Hardware.rightFrontTurnEncoder.reset();
+    // Hardware.rightRearTurnEncoder.reset();
+    // Hardware.leftRearTurnEncoder.reset();
+
+   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    
+    Hardware.driveSystem.drive(
+      Hardware.controller.getY(Hand.kLeft), 
+      Hardware.controller.getX(Hand.kLeft),
+      Hardware.controller.getX(Hand.kRight)
+    );
+
+    // TESTING PRINT STATEMENTS
+    // Uncomment each line to print it's value to the riolog.
+
+    // ========== ENCODERS ===========
+    // System.out.println("LF ENC: " + Hardware.leftFrontTurnEncoder.getDistance());
+    // System.out.println("RF ENC: " + Hardware.rightFrontTurnEncoder.getDistance());
+    // System.out.println("RR ENC: " + Hardware.rightRearTurnEncoder.getDistance());
+    // System.out.println("LR ENC: " + Hardware.leftRearTurnEncoder.getDistance());
+
+    // ========= DRIVE MOTORS =========
+    // System.out.println("LF DRIVE: " + Hardware.leftFrontDrive.getMotorOutputPercent());
+    // System.out.println("RF DRIVE: " + Hardware.rightFrontDrive.getMotorOutputPercent());
+    // System.out.println("RR DRIVE: " + Hardware.rightRearDrive.getMotorOutputPercent());
+    // System.out.println("LR DRIVE: " + Hardware.leftRearDrive.getMotorOutputPercent());
+
+    // ========= TURN MOTORS ==========
+    // System.out.println("LF TURN: " + Hardware.leftFrontTurn.getMotorOutputPercent());
+    // System.out.println("RF TURN: " + Hardware.rightFrontTurn.getMotorOutputPercent());
+    // System.out.println("RR TURN: " + Hardware.rightRearTurn.getMotorOutputPercent());
+    // System.out.println("LR TURN: " + Hardware.leftRearTurn.getMotorOutputPercent());
+
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
