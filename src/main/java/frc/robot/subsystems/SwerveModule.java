@@ -27,6 +27,7 @@ public class SwerveModule {
     private Encoder turnEncoder;
 
     // PID object allows for fine control over the swerve module's angle.
+    // Currently tuned for the Andymark Swerve & Steer Module w/ CIM and PG71 motors
     private PIDController turnPID = new PIDController(.075, 0, 0);
 
     /**
@@ -62,7 +63,7 @@ public class SwerveModule {
 
     /**
      * Control what angle the wheel is facing
-     * @param angleDegrees Angle, where 0 is facing forward and positive is clockwise
+     * @param angleDegrees Angle, where 0 is facing forward and positive is counter-clockwise
      */
     public void setDirection(double angleDegrees)
     {

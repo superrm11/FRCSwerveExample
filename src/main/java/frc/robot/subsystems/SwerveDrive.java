@@ -55,7 +55,7 @@ public class SwerveDrive {
     /**
      * Drive the robot using polar coordinates. Useful for autonomous driving:
      * e.g. drive_polar(45, 1, 0); to strafe at a right diagonal at full speed.
-     * @param dir_deg Direction in degrees. 0 is forward, and positive is clockwise.
+     * @param dir_deg Direction in degrees. 0 is forward, and positive is Counter-Clockwise.
      * @param mag How fast the robot should drive, in percentage: 0.0->1.0
      * @param rot How fast the robot should spin, in percentage: 0.0->1.0
      */
