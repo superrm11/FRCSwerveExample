@@ -27,7 +27,7 @@ public class SwerveModule {
     private Encoder turnEncoder;
 
     // PID object allows for fine control over the swerve module's angle.
-    private PIDController turnPID = new PIDController(.05, 0, 0);
+    private PIDController turnPID = new PIDController(.075, 0, 0);
 
     /**
      * Create the swerve module object.
@@ -48,7 +48,7 @@ public class SwerveModule {
         // This enables the PID loop to "wrap" the input to the closest angle
         // e.g. if the wheel has rotated twice since starting, inputting 90 degrees will not
         // spin backwards twice
-        this.turnPID.enableContinuousInput(0, 360);
+        this.turnPID.enableContinuousInput(-180, 180);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SwerveModule {
      */
     public void setSpeed(double speed)
     {
-        driveMotor.set(ControlMode.PercentOutput, speed);
+         driveMotor.set(ControlMode.PercentOutput, speed);
     }
 
     /**
@@ -68,7 +68,7 @@ public class SwerveModule {
     {
         double out = turnPID.calculate(turnEncoder.getDistance(), angleDegrees);
 
-        turnMotor.set(ControlMode.PercentOutput, out);
+         turnMotor.set(ControlMode.PercentOutput, out);
     }
 
     /**

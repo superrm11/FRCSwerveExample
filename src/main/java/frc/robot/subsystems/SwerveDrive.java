@@ -42,10 +42,10 @@ public class SwerveDrive {
         // Calculate the distances between each wheel and the center of the robot.
         // This is used to calculate what angle the wheels should go for rotation.
         // (e.g. 45 degrees for a square wheelbase)
-        Translation2d lf_dist = new Translation2d(-BOT_WIDTH / 2.0, BOT_LENGTH / 2.0);
-        Translation2d rf_dist = new Translation2d(BOT_WIDTH / 2.0, BOT_LENGTH / 2.0);
-        Translation2d rr_dist = new Translation2d(BOT_WIDTH / 2.0, -BOT_LENGTH / 2.0);
-        Translation2d lr_dist = new Translation2d(-BOT_WIDTH / 2.0, -BOT_LENGTH / 2.0);
+        Translation2d lf_dist = new Translation2d(BOT_LENGTH / 2.0, BOT_WIDTH / 2.0);
+        Translation2d rf_dist = new Translation2d(BOT_LENGTH / 2.0, -BOT_WIDTH / 2.0);
+        Translation2d rr_dist = new Translation2d(-BOT_LENGTH / 2.0, -BOT_WIDTH / 2.0);
+        Translation2d lr_dist = new Translation2d(-BOT_LENGTH / 2.0, BOT_WIDTH / 2.0);
 
         // The order that each distance is passed in is the same as the output after calculating,
         // so make sure to remember it!
@@ -86,6 +86,14 @@ public class SwerveDrive {
      */
     public void drive(double leftY, double leftX, double rightX)
     {
+        if(Math.abs(leftY) < .1)
+            leftY = 0.0;
+        if(Math.abs(leftX) < .1)
+            leftX = 0.0;
+        if(Math.abs(rightX) < .1)
+            rightX = 0.0;
+        rightX = rightX *.2;
+
         // Usually there would be units here, but percentage should work too.
         ChassisSpeeds speeds = new ChassisSpeeds(leftY, leftX, rightX);
 
